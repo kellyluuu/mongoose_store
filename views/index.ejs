@@ -1,26 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/static/bootstrap.css">
-    <title>index</title>
-</head>
+<%- include("partials/head.ejs") %>
+
 <body class="m-5">
+    <%- include("partials/header.ejs") %>
+    <%- include("partials/nav.ejs") %>
     <div>
-    <h2>All Products</h2>
+    <h2 class="m-3">All Products</h2>
 </div>
 <div>
-<ul class="grid-a">
+    <div class="wrapper">
     <% products.forEach(product=>{%>
-        <li> <a href="products/<%= product._id %> "><img width="100px" src=<%= product.img %>>
+        <div class="box">
+            <a href="products/<%= product._id %> "><img width="100px" src=<%= product.img %>>
             <p><%= product.name %> </p></a>
             <p>PRICE: $<%= product.price.toFixed(2)%> </p>  
-       </li>
+        </div>
 
    <% }) %> 
-</ul>
+</div>
 
 <section>
     <form action="/products/new">
