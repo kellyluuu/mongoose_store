@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/bootstrap.css">
+    <title>index</title>
+</head>
+<body class="m-5">
+    <div>
+    <h2>All Products</h2>
+</div>
+<div>
+<ul class="grid-a">
+    <% products.forEach(product=>{%>
+        <li> <a href="products/<%= product._id %> "><img width="100px" src=<%= product.img %>>
+            <p><%= product.name %> </p></a>
+            <p>PRICE: $<%= product.price.toFixed(2)%> </p>  
+       </li>
+
+   <% }) %> 
+</ul>
+
+<section>
+    <form action="/products/new">
+        <button type="submit" class="btn btn-primary mb-3">Create New Product</button>
+    </form>
+ </section>
+</div>
+    
+</body>
+
+</html>
+

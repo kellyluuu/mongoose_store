@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/bootstrap.css">
+    <title>Product Detail</title>
+</head>
+<body class="m-5">
+<div>
+
+<div class="card mb-3">
+  <h1 class="card-header"><%= product.name %> <h1>
+      <h4><span class="m-3" style="float: right"><a href="/products"> Back to All Products</a></span></h4>
+
+  <div class="card-body">
+    <h5 class="card-title">Product Detail</h5>
+    <h6 class="card-subtitle text-muted">    
+
+        <form action="/products/<%=product._id%>?_method=DELETE" method="POST">
+            <a href="/products/<%= product._id %>/edit" class="card-link">Edit</a>
+            <span style="float: right" > <button class="btn btn-outline-danger" type="submit">Delete</button> </span>
+    </form>
+    </h6>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" class="d-block user-select-none" width="100%" height="100%" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" style="font-size:1.125rem;text-anchor:middle">
+    <rect width="100%" height="100%" fill="#FFFFFF"></rect>
+    <text x="50%" y="50%" fill="#808080" dy=".3em"><%= product.name %> </text>
+    <image href="<%= product.img %> " width="100%" height="100%" />
+  </svg>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">    <%= product.description  %> </li>
+    <li class="list-group-item"></li>
+    <% if(product.qty>0){%>
+        <li class="list-group-item"> IN-STOCK <br>
+            <%= product.qty %> Qty Available <br>
+            <span> &nbsp;&nbsp;&nbsp; Inventory Level</span>
+            <div class="progress"> 
+                <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow= <%= product.qty %> " aria-valuemin="0" aria-valuemax="50" style="width: <%= product.qty%>%;"></div> 
+            </div>
+    <% }else{ %>
+        <li class="list-group-item"> OUT OF STOCK! <br>
+    <%} %> 
+
+    </li>
+  </ul>
+  <div class="card-footer text-muted"><b>
+    COST = $<%= product.price.toFixed(2) %> </b>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Buy Now</h4>
+    <% if(product.qty>0){%> 
+        <form id="buyamtid" action="/products/<%=product._id%>/1?_method=PUT" method="POST">
+            <label for="customRange3" class="form-label">Example range</label>
+            <input id="myRange" type="range" value="1" class="form-range" min="0" max="<%=product.qty%>" step="1">
+            <p>Purchased Qty: <span id="buyamt"></span></p>
+            <input id="buy-button" class="btn btn-primary" type="submit" value="BUY">
+        </form>
+    <% }else{ %>
+        <h1>OUT OF STOCK</h1>
+        <a href="/products"> Back to All Products</a>
+    <%} %> 
+
+  </div>
+</div>
+</div>
+  <script>
+  let slider = document.getElementById("myRange");
+  let output = document.getElementById("buyamt");
+  let outputid = document.getElementById("buyamtid");
+  output.innerHTML = slider.value;
+  slider.oninput = function() {
+    output.innerHTML = this.value;
+    outputid.setAttribute('action',`/products/<%=product._id%>/${this.value}?_method=PUT`) 
+  }
+  
+
+  </script>
+</body>
+</html>
