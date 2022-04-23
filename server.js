@@ -5,10 +5,12 @@ const express = require('express')
 const app = express()
 require('dotenv').config()
 const methodOverride = require('method-override');
+
 const PORT = process.env.PORT || 3000
 const mongoose = require('mongoose');
 const productsController = require('./controllers/products')
 const d = new Date()
+
 
 
 // Database Connection
@@ -28,6 +30,12 @@ app.use('/products',productsController)
 
 
 
+
+
+
+
+
+
 // Database Connection Error/Success
 // Define callback functions for various events
 const db = mongoose.connection
@@ -36,9 +44,13 @@ db.on("connected", () => console.log("mongo connected"))
 db.on("disconnected", () => console.log("mongo disconnected"))
 
 
+/* -------------------------------- //routes -------------------------------- */
+
+
 app.get('/',(req,res)=>{
   res.send('<html><body><a href="/products" >Candy Shop</a></body></html>')
 })
+
 
 
 /* -------------------------------------------------------------------------- */
